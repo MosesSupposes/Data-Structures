@@ -9,9 +9,9 @@ def find_key(value, dict):
 
 
 def remove_key_if_present(value, _dict):
-    key_of_removed_item = find_key(value, _dict) 
-    if key_of_removed_item in _dict:
-        del _dict[key_of_removed_item]
+    key_of_item_to_remove = find_key(value, _dict) 
+    if key_of_item_to_remove in _dict:
+        del _dict[key_of_item_to_remove]
 
 # ---------------------------------------------------------------------
 class LRUCache:
