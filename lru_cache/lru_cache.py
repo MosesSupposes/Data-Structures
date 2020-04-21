@@ -61,8 +61,13 @@ class LRUCache:
             # If the cache hasn't reached max capacity
             else:
                 # Simply add it to the head of the cache
-                self.cache.add_to_head(value) 
                 # Increment the size of the cache
+                self.cache.add_to_head(value) 
                 self.size += 1
+
+            # Store a pointer to the newly inserted node into
+            # the map for easy retrival in the future
+            self.map[key] = self.cache.head
+
 
 
