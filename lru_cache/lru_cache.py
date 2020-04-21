@@ -46,8 +46,6 @@ class LRUCache:
             # Overwrite the existing value by moving it to the front
             # of the cache.
             self.cache.move_to_front(self.map[key])
-            # Update the map by pointing this key to the front of the cache
-            self.map[key] = self.cache.head
 
         # If the key isn't already in the cache...
         else:
@@ -65,9 +63,10 @@ class LRUCache:
                 self.cache.add_to_head(value) 
                 self.size += 1
 
-            # Store a pointer to the newly inserted node into
-            # the map for easy retrival in the future
-            self.map[key] = self.cache.head
+        # Whether the key already existed in the cache or not...
+        # Store a pointer to the newly inserted node into
+        # the map for easy retrival in the future
+        self.map[key] = self.cache.head
 
 
 
