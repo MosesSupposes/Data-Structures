@@ -3,8 +3,8 @@ from doubly_linked_list import DoublyLinkedList
 # Helpers
 
 def find_key(value, dict):
-    for key, val in dict.items():
-        if val == value:
+    for key, node in dict.items():
+        if node.value == value:
             return key
 
 
@@ -69,8 +69,8 @@ class LRUCache:
             if self.size == self.limit:
                 # Remove the least recently used value from the cache
                 # and the map
-                self.cache.remove_from_tail()
                 remove_key_if_present(self.cache.tail.value, self.map)
+                self.cache.remove_from_tail()
                 # Add the value to the front of the cache 
                 self.cache.add_to_head(value) 
                 
