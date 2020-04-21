@@ -52,7 +52,9 @@ class LRUCache:
             # If the cache has reached max capacity 
             if self.size == self.limit:
                 # Remove the least recently used value from the cache
+                # and the map
                 self.cache.remove_from_tail()
+                del self.map[key]
                 # Add the value to the front of the cache 
                 self.cache.add_to_head(value) 
                 
