@@ -41,10 +41,28 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        if self.size == self.limit:
+        # If the key is already in the cache...
+        if key in self.map:
+            # Overwrite the existing value by moving it to the front
+            # of the cache.
             self.cache.move_to_front(self.map[key])
-            # Remove the oldest item from the cache
-            self.cache.remove_from_tail()
+            # Update the map by pointing this key to the front of the cache
+            self.map[key] = self.cache.head
+
+        # If the key isn't already in the cache...
         else:
-            # Move item to the front of the dll
-            self.cache.move_to_front(self.map[key])
+            # If the cache has reached max capacity 
+            if self.size == self.limit:
+                # Remove the least recently used value from the cache
+                self.cache.remove_from_tail()
+                # Add the value to the front of the cache 
+                self.cache.add_to_head(value) 
+                
+            # If the cache hasn't reached max capacity
+            else:
+                # Simply add it to the head of the cache
+                self.cache.add_to_head(value) 
+                # Increment the size of the cache
+                self.size += 1
+
+
