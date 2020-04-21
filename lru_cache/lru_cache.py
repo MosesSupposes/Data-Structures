@@ -8,7 +8,7 @@ def find_key(value, dict):
             return key
 
 
-def remove_key_if_contained(value, _dict):
+def remove_key_if_present(value, _dict):
     key_of_removed_item = find_key(value, _dict) 
     if key_of_removed_item in _dict:
         del _dict[key_of_removed_item]
@@ -68,7 +68,7 @@ class LRUCache:
                 # Remove the least recently used value from the cache
                 # and the map
                 self.cache.remove_from_tail()
-                remove_key_if_contained(self.cache.tail.value, self.map)
+                remove_key_if_present(self.cache.tail.value, self.map)
                 # Add the value to the front of the cache 
                 self.cache.add_to_head(value) 
                 
