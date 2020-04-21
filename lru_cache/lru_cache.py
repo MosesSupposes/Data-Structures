@@ -23,15 +23,8 @@ class LRUCache:
     """
     def get(self, key):
         if key in self.map:
-            if self.size == self.limit:
-                # Move item to the front of the cache 
-                self.cache.move_to_front(self.map[key])
-                # Remove the oldest item from the cache
-                self.cache.remove_from_tail()
-            else:
-                # Move item to the front of the dll
-                self.cache.move_to_front(self.map[key])
-
+            # Move item to the front of the cache 
+            self.cache.move_to_front(self.map[key])
             # Return the requested value
             return self.map[key].value
         else:
@@ -48,4 +41,10 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if self.size == self.limit:
+            self.cache.move_to_front(self.map[key])
+            # Remove the oldest item from the cache
+            self.cache.remove_from_tail()
+        else:
+            # Move item to the front of the dll
+            self.cache.move_to_front(self.map[key])
