@@ -57,9 +57,11 @@ class LRUCache:
     def set(self, key, value):
         # If the key is already in the cache...
         if key in self.map:
-            # Overwrite the existing value by moving it to the front
-            # of the cache.
-            self.cache.move_to_front(self.map[key])
+            node = self.map[key]
+            # Overwrite the existing value 
+            node.value = value
+            # Move it to the front of the cache.
+            self.cache.move_to_front(node)
 
         # If the key isn't already in the cache...
         else:
