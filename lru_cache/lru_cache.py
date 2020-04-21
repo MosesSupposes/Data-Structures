@@ -1,5 +1,19 @@
 from doubly_linked_list import DoublyLinkedList
 
+# Helpers
+
+def find_key(value, dict):
+    for key, val in dict.items():
+        if val == value:
+            return key
+
+
+def remove_key_if_contained(value, _dict):
+    key_of_removed_item = find_key(value, _dict) 
+    if key_of_removed_item in _dict:
+        del _dict[key_of_removed_item]
+
+# ---------------------------------------------------------------------
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -54,7 +68,7 @@ class LRUCache:
                 # Remove the least recently used value from the cache
                 # and the map
                 self.cache.remove_from_tail()
-                del self.map[key]
+                remove_key_if_contained(self.cache.tail.value, self.map)
                 # Add the value to the front of the cache 
                 self.cache.add_to_head(value) 
                 
