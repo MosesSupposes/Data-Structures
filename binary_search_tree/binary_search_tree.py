@@ -71,7 +71,7 @@ class BinarySearchTree:
         if self.left is not None:
             self.left.for_each(cb)
 
-        elif self.right is not None:
+        if self.right is not None:
             self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
