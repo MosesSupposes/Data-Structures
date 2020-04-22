@@ -1,3 +1,19 @@
+from doubly_linked_list import DoublyLinkedList
+
+# Helpers
+
+def find_key(value, dict):
+    for key, node in dict.items():
+        if node.value == value:
+            return key
+
+
+def remove_key_if_present(value, _dict):
+    key_of_item_to_remove = find_key(value, _dict) 
+    if key_of_item_to_remove in _dict:
+        del _dict[key_of_item_to_remove]
+
+# ---------------------------------------------------------------------
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +23,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.size = 0
+        self.cache = DoublyLinkedList()
+        self.map = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +36,13 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key in self.map:
+            # Move item to the front of the cache 
+            self.cache.move_to_front(self.map[key])
+            # Return the requested value
+            return self.map[key].value
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +55,36 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # If the key is already in the cache...
+        if key in self.map:
+            node = self.map[key]
+            # Overwrite the existing value 
+            node.value = value
+            # Move it to the front of the cache.
+            self.cache.move_to_front(node)
+
+        # If the key isn't already in the cache...
+        else:
+            # If the cache has reached max capacity 
+            if self.size == self.limit:
+                # Remove the least recently used value from the cache
+                # and the map
+                remove_key_if_present(self.cache.tail.value, self.map)
+                self.cache.remove_from_tail()
+                # Add the value to the front of the cache 
+                self.cache.add_to_head(value) 
+                
+            # If the cache hasn't reached max capacity
+            else:
+                # Simply add it to the head of the cache
+                # Increment the size of the cache
+                self.cache.add_to_head(value) 
+                self.size += 1
+
+        # Whether the key already existed in the cache or not...
+        # Store a pointer to the newly inserted node into
+        # the map for easy retrival in the future
+        self.map[key] = self.cache.head
+
+
+
