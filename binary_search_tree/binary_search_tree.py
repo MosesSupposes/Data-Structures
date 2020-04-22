@@ -49,7 +49,19 @@ class BinarySearchTree:
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        def determine_max(prev_max, tree):
+            if tree.value >= prev_max:
+                if tree.right is not None:
+                    return determine_max(prev_max, tree.right)
+                else:
+                    prev_max = tree.value
+                    return prev_max
+            
+            # If tree.value is less than the prev max... 
+            else:
+                return prev_max
+
+        return determine_max(self.value, self)
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
@@ -83,3 +95,4 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
