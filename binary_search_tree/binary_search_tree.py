@@ -12,21 +12,67 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
-
+        if value < self.value:
+            if self.left is not None:
+                self.left.insert(value)
+            # Base case
+            else:
+                self.left = BinarySearchTree(value)
+        # If value is greater than or equal to self.value...
+        else:
+            if self.right is not None:
+                self.right.insert(value)
+            # Base case
+            else:
+                self.right = BinarySearchTree(value) 
+  
+        
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # Base case
+        if target == self.value:
+            return True
+        
+        if target < self.value:
+            if self.left is not None:
+                return self.left.contains(target)
+            # Base case
+            else:
+                return False
+        if target > self.value:
+            if self.right is not None:
+                return self.right.contains(target)
+            # Base case
+            else:
+                return False
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        def determine_max(prev_max, tree):
+            if tree.value >= prev_max:
+                if tree.right is not None:
+                    return determine_max(prev_max, tree.right)
+                else:
+                    prev_max = tree.value
+                    return prev_max
+            
+            # If tree.value is less than the prev max... 
+            else:
+                return prev_max
+
+        return determine_max(self.value, self)
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        cb(self.value)
+
+        if self.left is not None:
+            self.left.for_each(cb)
+
+        if self.right is not None:
+            self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
 
@@ -55,3 +101,4 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
