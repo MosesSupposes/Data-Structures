@@ -2,6 +2,7 @@ import sys
 sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
+from collections import deque
 
 
 class BinarySearchTree:
@@ -79,7 +80,21 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        _list = []
+        def keep_track(node):
+            if node is None:
+                return
+            else:
+                _list.append(node.value)
+                keep_track(node.left)
+                keep_track(node.right)
+
+        
+        keep_track(self)
+        _list.sort()
+        for item in _list:
+            print(item)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
