@@ -89,9 +89,9 @@ class BinarySearchTree:
                 keep_track(node.left)
                 keep_track(node.right)
 
-        
         keep_track(self)
         _list.sort()
+
         for item in _list:
             print(item)
 
@@ -104,7 +104,13 @@ class BinarySearchTree:
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        print(node.value)
+        
+        if self.left is not None:
+            self.left.dft_print(node.left)
+
+        if self.right is not None:
+            self.right.dft_print(node.right)
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
